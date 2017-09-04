@@ -64,37 +64,19 @@ method RobotSummaries               { .PrintSummary for self.RobotObjects; }
 method DriveAddresses               { return sort { $^a <=> $^b }, keys %!Drive; }
 method DriveObjects                 { return self.DriveAddresses.flatmap: { %!Drive{$_} }; }
 method DriveStates                  { return self.DriveAddresses.flatmap: { $_ => %!Drive{$_}.DriveState }; }
-method DriveVolumes {
-    my @vols;
-    for self.DriveObjects -> $drive {
-        push(@vols, $drive.VolumeTag) if $drive.VolumeTag;
-    }
-    return @vols;
-}
+method DriveVolumes                 { return self.DriveObjects.grep({ $_ with $_.VolumeTag }).map: { $_.VolumeTag }; }
 method DriveSummaries               { .PrintSummary for self.DriveObjects; }
 
 method ImportExportStationAddresses { return sort { $^a <=> $^b }, keys %!IEStation; }
 method ImportExportStationObjects   { return self.ImportExportStationAddresses.flatmap: { %!IEStation{$_} }; }
 method ImportExportStates           { return self.ImportExportStationAddresses.flatmap: { $_ => %!IEStation{$_}.ImportExportState }; }
-method ImportExportStationVolumes {
-    my @vols;
-    for self.ImportExportStationObjects -> $iestation {
-        push(@vols, $iestation.VolumeTag) if $iestation.VolumeTag;
-    }
-    return @vols;
-}
+method ImportExportStationVolumes   { return self.ImportExportStationObjects.grep({ $_ with $_.VolumeTag }).map: { $_.VolumeTag }; }
 method IEStationSummaries           { .PrintSummary for self.ImportExportStationObjects; }
 
 method SlotAddresses                { return sort { $^a <=> $^b }, keys %!Slot; }
 method SlotObjects                  { return self.SlotAddresses.flatmap: { %!Slot{$_} }; }
 method SlotStates                   { return self.SlotAddresses.flatmap: { $_ => %!Slot{$_}.SlotState }; }
-method SlotVolumes {
-    my @vols;
-    for self.SlotObjects -> $slot {
-        push(@vols, $slot.VolumeTag) if $slot.VolumeTag;
-    }
-    return @vols;
-}
+method SlotVolumes                  { return self.SlotObjects.grep({ $_ with $_.VolumeTag }).map: { $_.VolumeTag }; }
 method SlotSummaries                { .PrintSummary for self.SlotObjects; }
 
 method WhenceVolume (Str $volume_to_match) {
@@ -124,16 +106,8 @@ C<Hardware::Tape::Management::ITDT> is a module that reads IBM's Tape Diagnostic
 =head1 Synopsis
 
     use Hardware::Tape::Management::ITDT;
-
     my Hardware::Tape::Management::ITDT $tape_library_inventory .= new(:media_changer</dev/smc0>);
-
-    say $tape_library_inventory.Robots;
-
-    my @volumes;
-    for $tape_library_inventory.IEStations -> $iestation {
-        push(@volumes, $tape_library_inventory.IEStationVolumeTag($iestation))
-          if $tape_library_inventory.IEStationVolumeTag($iestation);
-    }
+    say $tape_library_inventory.RobotSummaries;
 
 =end pod
 
