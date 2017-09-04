@@ -114,7 +114,6 @@ C<Hardware::Tape::Management::ITDT> is a module that reads IBM's Tape Diagnostic
 =begin test script
     #!/usr/bin/env perl6
 
-    use                 v6;
     use                 Hardware::Tape::Management::ITDT;
 
     sub MAIN (
