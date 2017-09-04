@@ -64,19 +64,19 @@ method RobotSummaries               { .PrintSummary for self.RobotObjects; }
 method DriveAddresses               { return sort { $^a <=> $^b }, keys %!Drive; }
 method DriveObjects                 { return self.DriveAddresses.flatmap: { %!Drive{$_} }; }
 method DriveStates                  { return self.DriveAddresses.flatmap: { $_ => %!Drive{$_}.DriveState }; }
-method DriveVolumes                 { return self.DriveObjects.grep({ $_ with $_.VolumeTag }).map: { $_.VolumeTag }; }
+method DriveVolumes                 { return self.DriveObjects.grep({ $_ with .VolumeTag }).map: { .VolumeTag }; }
 method DriveSummaries               { .PrintSummary for self.DriveObjects; }
 
 method ImportExportStationAddresses { return sort { $^a <=> $^b }, keys %!IEStation; }
 method ImportExportStationObjects   { return self.ImportExportStationAddresses.flatmap: { %!IEStation{$_} }; }
 method ImportExportStates           { return self.ImportExportStationAddresses.flatmap: { $_ => %!IEStation{$_}.ImportExportState }; }
-method ImportExportStationVolumes   { return self.ImportExportStationObjects.grep({ $_ with $_.VolumeTag }).map: { $_.VolumeTag }; }
+method ImportExportStationVolumes   { return self.ImportExportStationObjects.grep({ $_ with .VolumeTag }).map: { .VolumeTag }; }
 method IEStationSummaries           { .PrintSummary for self.ImportExportStationObjects; }
 
 method SlotAddresses                { return sort { $^a <=> $^b }, keys %!Slot; }
 method SlotObjects                  { return self.SlotAddresses.flatmap: { %!Slot{$_} }; }
 method SlotStates                   { return self.SlotAddresses.flatmap: { $_ => %!Slot{$_}.SlotState }; }
-method SlotVolumes                  { return self.SlotObjects.grep({ $_ with $_.VolumeTag }).map: { $_.VolumeTag }; }
+method SlotVolumes                  { return self.SlotObjects.grep({ $_ with .VolumeTag }).map: { .VolumeTag }; }
 method SlotSummaries                { .PrintSummary for self.SlotObjects; }
 
 method WhenceVolume (Str $volume_to_match) {
