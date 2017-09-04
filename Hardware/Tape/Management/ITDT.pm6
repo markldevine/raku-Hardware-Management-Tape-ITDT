@@ -8,9 +8,6 @@ use         Hardware::Tape::Management::ITDT::Drive;
 use         Hardware::Tape::Management::ITDT::IEStation;
 use         Hardware::Tape::Management::ITDT::Slot;
 
-#subset File of Str where *.IO.e;
-#subset Dir  of Str where *.IO.d;
-
 has $.itdt_path;
 has $.media_changer;
 
@@ -48,13 +45,13 @@ submethod BUILD (:$!media_changer, :$!itdt_path) {
     for keys $match_tree<ImportExportStationStanza> -> $iestation_index {
         for $match_tree<ImportExportStationStanza>[$iestation_index] -> $iestation {
             my $address = ~$match_tree<ImportExportStationStanza>[$iestation_index]<ImportExportStationAddress><v>;
-            %!IEStation{$address}           = $iestation.made;
+            %!IEStation{$address}   = $iestation.made;
         }
     }
     for keys $match_tree<SlotStanza> -> $slot_index {
         for $match_tree<SlotStanza>[$slot_index] -> $slot {
             my $address = ~$match_tree<SlotStanza>[$slot_index]<SlotAddress><v>;
-            %!Slot{$address}                = $slot.made;
+            %!Slot{$address}        = $slot.made;
         }
     }
 }
@@ -140,5 +137,57 @@ C<Hardware::Tape::Management::ITDT> is a module that reads IBM's Tape Diagnostic
 
 =end pod
 
-=begin unit test code
-=end unit test code
+=begin test script
+    #!/usr/bin/env perl6
+
+    use                 v6;
+    use                 Hardware::Tape::Management::ITDT;
+
+    sub MAIN (
+                Str     :$media_changer,
+                Str     :$itdt_path,
+                Str     :$whence,
+                Bool    :$robots,
+                Bool    :$drives,
+                Bool    :$iestations,
+                Bool    :$slots,
+                Bool    :$states,
+                Bool    :$volumes,
+            ) {
+
+        if ($states && $volumes) || ($states && $whence) || ($volumes && $whence) {
+            die "$*PROGRAM-NAME [--states | --volumes | --whence]";
+        }
+
+        my Hardware::Tape::Management::ITDT $tape_library_inventory .= new(:$media_changer, :$itdt_path);
+
+        if $whence {
+            my $obj = $tape_library_inventory.WhenceVolume($whence);
+            given $obj.^name {
+                when /Robot/        { say "$whence is currently located in Robot     " ~ $obj.RobotAddress; }
+                when /Drive/        { say "$whence is currently located in Drive     " ~ $obj.DriveAddress; }
+                when /IEStation/    { say "$whence is currently located in IEStation " ~ $obj.ImportExportStationAddress; }
+                when /Slot/         { say "$whence is currently located in Slot      " ~ $obj.SlotAddress; }
+            }
+        }
+        elsif $states {
+            if $robots      { say $_.fmt("Robot %-5s %s") for $tape_library_inventory.RobotStates; }
+            if $drives      { say $_.fmt("Drive %-5s %s") for $tape_library_inventory.DriveStates; }
+            if $iestations  { say $_.fmt("Import/Export Station %-5s %s") for $tape_library_inventory.ImportExportStates; }
+            if $slots       { say $_.fmt("Slot %-5s %s") for $tape_library_inventory.SlotStates; }
+        }
+        elsif $volumes {
+            my @volumes;
+            push(@volumes, $tape_library_inventory.DriveVolumes)                if $drives;
+            push(@volumes, $tape_library_inventory.ImportExportStationVolumes)  if $iestations;
+            push(@volumes, $tape_library_inventory.SlotVolumes)                 if $slots;
+            say @volumes.words.sort.join("\n")                                  if @volumes.elems;
+        }
+        else {
+            $tape_library_inventory.RobotSummaries      if $robots;
+            $tape_library_inventory.DriveSummaries      if $drives;
+            $tape_library_inventory.IEStationSummaries  if $iestations;
+            $tape_library_inventory.SlotSummaries       if $slots;
+        }
+    }
+=end test script
