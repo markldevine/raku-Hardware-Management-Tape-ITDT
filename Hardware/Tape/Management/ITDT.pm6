@@ -1,4 +1,18 @@
-unit        class Hardware::Tape::Management::ITDT;
+=begin pod
+
+=head1 Hardware::Tape::Management::ITDT
+
+C<Hardware::Tape::Management::ITDT> is a module that reads IBM's Tape Diagnostic Tool.
+
+=head1 Synopsis
+
+    use Hardware::Tape::Management::ITDT;
+    my Hardware::Tape::Management::ITDT $tape_library_inventory .= new(:media-changer</dev/smc0>);
+    say $tape_library_inventory.RobotSummaries;
+
+=end pod
+
+unit        class Hardware::Tape::Management::ITDT:ver<0.0.1>:auth<mark@markdevine.com>;
 
 use         v6;
 use         Hardware::Tape::Management::ITDT::Grammars::Inventory;
@@ -8,27 +22,23 @@ use         Hardware::Tape::Management::ITDT::Drive;
 use         Hardware::Tape::Management::ITDT::IEStation;
 use         Hardware::Tape::Management::ITDT::Slot;
 
-has $.itdt_path;
-has $.media_changer;
+has $.itdt-path     = '/opt/our/ITDT/itdt';
+has $.media-changer = '/dev/IBMchanger0';
 
 has %!Robot;
 has %!Drive;
 has %!IEStation;
 has %!Slot;
 
-submethod BUILD (:$!media_changer, :$!itdt_path) {
-
-    $!media_changer = '/dev/IBMchanger0'    unless $!media_changer.defined;
-    $!itdt_path     = '/opt/our/ITDT/itdt'  unless $!itdt_path.defined;
-
+submethod TWEAK {
     my $match_tree;
-    X::Hardware::Tape::Management::ITDT::NSF.new(source => $!media_changer).throw() unless "$!media_changer".IO.e;
-    my $proc = run 'sudo', self.itdt_path, '-w', 2, '-f', self.media_changer, 'inventory', :out;
+    X::Hardware::Tape::Management::ITDT::NSF.new(source => $!media-changer).throw() unless "$!media-changer".IO.e;
+    my $proc = run 'sudo', self.itdt-path, '-w', 2, '-f', self.media-changer, 'inventory', :out;
     my $inventory = $proc.out.slurp: :close;
     $match_tree = Hardware::Tape::Management::ITDT::Grammars::Inventory.parse(
         $inventory,
         actions => Hardware::Tape::Management::ITDT::Grammars::Inventory::Actions,
-    ) or X::Hardware::Tape::Management::ITDT::ParseFail.new(source => self.media_changer).throw;
+    ) or X::Hardware::Tape::Management::ITDT::ParseFail.new(source => self.media-changer).throw;
 
     for keys $match_tree<RobotStanza> -> $robot_index {
         for $match_tree<RobotStanza>[$robot_index] -> $robot {
@@ -95,30 +105,15 @@ method WhenceVolume (Str $volume_to_match) {
     return;
 }
 
-=finish
+=begin code
 
-=begin pod
-
-=head1 Hardware::Tape::Management::ITDT
-
-C<Hardware::Tape::Management::ITDT> is a module that reads IBM's Tape Diagnostic Tool.
-
-=head1 Synopsis
-
-    use Hardware::Tape::Management::ITDT;
-    my Hardware::Tape::Management::ITDT $tape_library_inventory .= new(:media_changer</dev/smc0>);
-    say $tape_library_inventory.RobotSummaries;
-
-=end pod
-
-=begin test script
 #!/usr/bin/env perl6
 
 use                 Hardware::Tape::Management::ITDT;
 
 sub MAIN (
-            Str     :$media_changer,
-            Str     :$itdt_path,
+            Str     :$itdt-path,
+            Str     :$media-changer,
             Str     :$whence,
             Bool    :$robots,
             Bool    :$drives,
@@ -129,11 +124,15 @@ sub MAIN (
          ) {
 
     if ($states && $volumes) || ($states && $whence) || ($volumes && $whence) {
-        note "$*PROGRAM-NAME: --media_changer=... --itdt_path=... [--robots] [--drives] [--iestations] [--slots] [--states | --volumes | --whence]";
+        note "$*PROGRAM-NAME: --media-changer=... --itdt-path=... [--robots] [--drives] [--iestations] [--slots] [--states | --volumes | --whence]";
         exit 2;
     }
 
-    my Hardware::Tape::Management::ITDT $tape_library_inventory .= new(:$media_changer, :$itdt_path);
+    my %args;
+    %args<itdt-path>     = $itdt-path     if $itdt-path;
+    %args<media-changer> = $media-changer if $media-changer;
+
+    my Hardware::Tape::Management::ITDT $tape_library_inventory .= new(|%args);
 
     if $whence {
         my $obj = $tape_library_inventory.WhenceVolume($whence);
@@ -165,5 +164,4 @@ sub MAIN (
     }
 }
 
-=finish
-=end test script
+=end code
