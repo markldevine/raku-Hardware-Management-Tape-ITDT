@@ -68,29 +68,29 @@ token SlotStanza {
     <VolumeTag>
     \n*
 }
-token RobotAddress { ^^ 'Robot Address' \s $<v> = [ \d+ ] \n }
-token RobotState { ^^ \s* 'Robot State' \s* '.'+ \s* $<v> = [ \w+ ] \n }
-token DriveAddress { ^^ 'Drive Address' \s $<v> = [ \d+ ] \n }
-token DriveState { ^^ \s* 'Drive State' \s* '.'+ \s+ $<v> = [ .+? ] \n }
-token SameBusasMediumChanger { ^^ \s* 'Same Bus as Medium Changer' \s* '.'+ \s+ $<v> = [ .+? ] \n }
-token SCSIBusAddressValid { ^^ \s* 'SCSI Bus Address Valid' \s* '.'+ \s+ $<v> = [ .+? ] \n }
-token LogicalUnitNumberValid { ^^ \s* 'Logical Unit Number Valid' \s* '.'+ \s+ $<v> = [ .+? ] \n }
-token ImportExportStationAddress { ^^ 'Import/Export Station Address' \s $<v> = [ \d+ ] \n }
-token ImportExportState { ^^ \s* 'Import/Export State' \s* '.'+ \s+ $<v> = [ .+? ] \n }
-token ImportEnabled { ^^ \s* 'Import Enabled' \s* '.'+ \s+ $<v> = [ .+? ] \n }
-token ExportEnabled { ^^ \s* 'Export Enabled' \s* '.'+ \s+ $<v> = [ .+? ] \n }
-token SlotAddress { ^^ 'Slot Address' \s* '.'+ \s* $<v> = [ \d+ ] \n }
-token SlotState { ^^ \s* 'Slot State' \s* '.'+ \s+ $<v> = [ .+? ] \n }
-token ASCASCQ { ^^ \s* 'ASC/ASCQ' \s* '.'+ \s+ $<v> = [ .+? ] \n }
-token MediaPresent { ^^ \s* 'Media Present' \s* '.'+ \s* $<v> = [ \w+ ] \n }
-token MediaPlacedbyOperator { ^^ \s* 'Media Placed by Operator' \s* '.'+ \s* $<v> = [ \w+ ] \n }
-token SourceElementAddressValid { ^^ \s* 'Source Element Address Valid' \s* '.'+ \s+ $<v> = [ \w+ ] \n }
-token SourceElementAddress { ^^ \s* 'Source Element Address' \s* '.'+ \s* $<v> = [ .+? ] \n }
-token LocationFraColRowAcc { ^^ \s* 'Location (Fra/Col/Row/Acc)' \s* '.'+ \s* $<v> = [.+?] \n }
-token MediaInverted { ^^ \s* 'Media Inverted' \s* '.'+ \s+ $<v> = [ \w+ ] \n }
-token RobotAccessAllowed { ^^ \s* 'Robot Access Allowed' \s* '.'+ \s+ $<v> = [ \w+ ] \n }
-regex VolumeTag { ^^ \s* 'Volume Tag' \s* '.'+ \s* $<v> = [ \w* ] \n }
-token postamble { \n* 'Exit with code:' \s+ \d+ \n* }
+token RobotAddress                  { ^^ 'Robot Address' \s $<v> = [ \d+ ] \n                              }
+token RobotState                    { ^^ \s* 'Robot State' \s* '.'+ \s* $<v> = [ \w+ ] \n                  }
+token DriveAddress                  { ^^ 'Drive Address' \s $<v> = [ \d+ ] \n                              }
+token DriveState                    { ^^ \s* 'Drive State' \s* '.'+ \s+ $<v> = [ .+? ] \n                  }
+token SameBusasMediumChanger        { ^^ \s* 'Same Bus as Medium Changer' \s* '.'+ \s+ $<v> = [ .+? ] \n   }
+token SCSIBusAddressValid           { ^^ \s* 'SCSI Bus Address Valid' \s* '.'+ \s+ $<v> = [ .+? ] \n       }
+token LogicalUnitNumberValid        { ^^ \s* 'Logical Unit Number Valid' \s* '.'+ \s+ $<v> = [ .+? ] \n    }
+token ImportExportStationAddress    { ^^ 'Import/Export Station Address' \s $<v> = [ \d+ ] \n              }
+token ImportExportState             { ^^ \s* 'Import/Export State' \s* '.'+ \s+ $<v> = [ .+? ] \n          }
+token ImportEnabled                 { ^^ \s* 'Import Enabled' \s* '.'+ \s+ $<v> = [ .+? ] \n               }
+token ExportEnabled                 { ^^ \s* 'Export Enabled' \s* '.'+ \s+ $<v> = [ .+? ] \n               }
+token SlotAddress                   { ^^ 'Slot Address' \s* '.'+ \s* $<v> = [ \d+ ] \n                     }
+token SlotState                     { ^^ \s* 'Slot State' \s* '.'+ \s+ $<v> = [ .+? ] \n                   }
+token ASCASCQ                       { ^^ \s* 'ASC/ASCQ' \s* '.'+ \s+ $<v> = [ .+? ] \n                     }
+token MediaPresent                  { ^^ \s* 'Media Present' \s* '.'+ \s* $<v> = [ \w+ ] \n                }
+token MediaPlacedbyOperator         { ^^ \s* 'Media Placed by Operator' \s* '.'+ \s* $<v> = [ \w+ ] \n     }
+token SourceElementAddressValid     { ^^ \s* 'Source Element Address Valid' \s* '.'+ \s+ $<v> = [ \w+ ] \n }
+token SourceElementAddress          { ^^ \s* 'Source Element Address' \s* '.'+ \s* $<v> = [ .+? ] \n       }
+token LocationFraColRowAcc          { ^^ \s* 'Location (Fra/Col/Row/Acc)' \s* '.'+ \s* $<v> = [.+?] \n     }
+token MediaInverted                 { ^^ \s* 'Media Inverted' \s* '.'+ \s+ $<v> = [ \w+ ] \n               }
+token RobotAccessAllowed            { ^^ \s* 'Robot Access Allowed' \s* '.'+ \s+ $<v> = [ \w+ ] \n         }
+regex VolumeTag                     { ^^ \s* 'Volume Tag' \s* '.'+ \s* $<v> = [ \w* ] \n                   }
+token postamble                     { \n* 'Exit with code:' \s+ \d+ \n*                                    }
 
 class Actions {
     method RobotStanza ($/) {
