@@ -105,7 +105,9 @@ method WhenceVolume (Str $volume_to_match) {
     return;
 }
 
-=begin code
+=finish
+
+<test script>
 
 #!/usr/bin/env perl6
 
@@ -164,4 +166,10 @@ sub MAIN (
     }
 }
 
-=end code
+</test script>
+
+<sample test script executions>
+    ./.ITDT.pm6 --media-changer=inventory.itdt --drives --volumes
+    ./.ITDT.pm6 --media-changer=inventory.itdt --whence=230567JA
+    ./.ITDT.pm6 --media-changer=inventory.itdt --robots --states
+</sample test script executions>
