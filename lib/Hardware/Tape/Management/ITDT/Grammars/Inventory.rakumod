@@ -1,9 +1,8 @@
-use     v6;
 use     Hardware::Tape::Management::ITDT::Robot;
 use     Hardware::Tape::Management::ITDT::Drive;
 use     Hardware::Tape::Management::ITDT::IEStation;
 use     Hardware::Tape::Management::ITDT::Slot;
-unit    grammar Hardware::Tape::Management::ITDT::Grammars::Inventory;
+unit    grammar Hardware::Tape::Management::ITDT::Grammars::Inventory:api<0.1.0>:auth<Mark Devine (mark@markdevine.com)>;
 
 token TOP {
     <preamble>

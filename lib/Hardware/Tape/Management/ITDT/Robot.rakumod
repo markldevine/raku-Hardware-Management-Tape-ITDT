@@ -1,4 +1,4 @@
-unit class Hardware::Tape::Management::ITDT::Robot;
+unit class Hardware::Tape::Management::ITDT::Robot:api<0.1.0>:auth<Mark Devine (mark@markdevine.com)>;
 
 has $.RobotAddress              is required;
 has $.RobotState                is required;

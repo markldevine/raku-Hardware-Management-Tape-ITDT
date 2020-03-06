@@ -1,4 +1,4 @@
-unit class Hardware::Tape::Management::ITDT::Drive;
+unit class Hardware::Tape::Management::ITDT::Drive:api<0.1.0>:auth<Mark Devine (mark@markdevine.com)>;
 
 has $.DriveAddress              is required;
 has $.DriveState                is required;

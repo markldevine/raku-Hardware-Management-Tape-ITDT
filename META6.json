@@ -1,0 +1,24 @@
+{
+  "api": "0.1.0",
+  "auth": "github:markldevine",
+  "authors": [
+    "Mark Devine <mark@markdevine.com>"
+  ],
+  "depends": [
+  ],
+  "description": "IBM Hardware Management - Tape: ITDT",
+  "license": "Artistic-2.0",
+  "meta-version": 0,
+  "name": "Hardware::Management::Tape::ITDT",
+  "perl": "6.c",
+  "provides": {
+    "": "lib/Hardware/Tape/Management/",
+    "": "lib/Hardware/Tape/Management/",
+    "": "lib/Hardware/Tape/Management/"
+  },
+  "resources": [
+  ],
+  "source-url": "https://github.com/markldevine/raku-Hardware-Management-Tape-ITDT.git",
+  "tags": [
+  ]
+}

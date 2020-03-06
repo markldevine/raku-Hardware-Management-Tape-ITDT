@@ -1,4 +1,4 @@
-use v6;
+unit class Hardware::Tape::Management::ITDT::Exceptions:api<0.1.0>:auth<Mark Devine (mark@markdevine.com)>;
 
 class X::Hardware::Tape::Management::ITDT::NSF is Exception {
     has $.source;
