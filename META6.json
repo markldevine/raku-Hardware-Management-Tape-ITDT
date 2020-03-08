@@ -1,5 +1,5 @@
 {
-  "api": "0.1.0",
+  "api": "1",
   "auth": "github:markldevine",
   "authors": [
     "Mark Devine <mark@markdevine.com>"
@@ -10,7 +10,7 @@
   "license": "Artistic-2.0",
   "meta-version": 0,
   "name": "Hardware::Management::Tape::ITDT",
-  "perl": "6.c",
+  "perl": "6.d",
   "provides": {
     "": "lib/Hardware/Tape/Management/",
     "": "lib/Hardware/Tape/Management/",
@@ -20,5 +20,6 @@
   ],
   "source-url": "https://github.com/markldevine/raku-Hardware-Management-Tape-ITDT.git",
   "tags": [
-  ]
+  ],
+  "version" : "0.0.1"
 }
