@@ -1,5 +1,4 @@
 {
-  "api": "1",
   "auth": "github:markldevine",
   "authors": [
     "Mark Devine <mark@markdevine.com>"
@@ -12,9 +11,13 @@
   "name": "Hardware::Management::Tape::ITDT",
   "perl": "6.d",
   "provides": {
-    "": "lib/Hardware/Tape/Management/",
-    "": "lib/Hardware/Tape/Management/",
-    "": "lib/Hardware/Tape/Management/"
+    "Hardware::Tape::Management::ITDT": "lib/Hardware/Tape/Management/ITDT.rakumod",
+    "Hardware::Tape::Management::ITDT::Drive": "lib/Hardware/Tape/Management/ITDT/Drive.rakumod",
+    "Hardware::Tape::Management::ITDT::Exceptions": "lib/Hardware/Tape/Management/ITDT/Exceptions.rakumod",
+    "Hardware::Tape::Management::ITDT::Grammars::Inventory": "lib/Hardware/Tape/Management/ITDT/Grammars/Inventory.rakumod",
+    "Hardware::Tape::Management::ITDT::IEStation": "lib/Hardware/Tape/Management/ITDT/IEStation.rakumod",
+    "Hardware::Tape::Management::ITDT::Robot": "lib/Hardware/Tape/Management/ITDT/Robot.rakumod",
+    "Hardware::Tape::Management::ITDT::Slot": "lib/Hardware/Tape/Management/ITDT/Slot.rakumod"
   },
   "resources": [
   ],
