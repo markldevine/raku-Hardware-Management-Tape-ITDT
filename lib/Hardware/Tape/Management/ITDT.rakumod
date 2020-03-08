@@ -12,15 +12,14 @@ C<Hardware::Tape::Management::ITDT> is a module that reads IBM's Tape Diagnostic
 
 =end pod
 
-unit        class Hardware::Tape::Management::ITDT:ver<0.0.1>:auth<mark@markdevine.com>;
+unit    class Hardware::Tape::Management::ITDT:api<1>:auth<mark@markdevine.com>;
 
-use         v6;
-use         Hardware::Tape::Management::ITDT::Grammars::Inventory;
-use         Hardware::Tape::Management::ITDT::Exceptions;
-use         Hardware::Tape::Management::ITDT::Robot;
-use         Hardware::Tape::Management::ITDT::Drive;
-use         Hardware::Tape::Management::ITDT::IEStation;
-use         Hardware::Tape::Management::ITDT::Slot;
+use     Hardware::Tape::Management::ITDT::Grammars::Inventory;
+use     Hardware::Tape::Management::ITDT::Exceptions;
+use     Hardware::Tape::Management::ITDT::Robot;
+use     Hardware::Tape::Management::ITDT::Drive;
+use     Hardware::Tape::Management::ITDT::IEStation;
+use     Hardware::Tape::Management::ITDT::Slot;
 
 has $.itdt-path     = '/opt/our/ITDT/itdt';
 has $.media-changer = '/dev/IBMchanger0';

@@ -1,4 +1,4 @@
-unit class Hardware::Tape::Management::ITDT::Slot:api<0.1.0>:auth<Mark Devine (mark@markdevine.com)>;
+unit class Hardware::Tape::Management::ITDT::Slot:api<1>:auth<Mark Devine (mark@markdevine.com)>;
 
 has $.SlotAddress               is required;
 has $.SlotState                 is required;

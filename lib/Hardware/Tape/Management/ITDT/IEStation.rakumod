@@ -1,4 +1,4 @@
-unit class Hardware::Tape::Management::ITDT::IEStation:api<0.1.0>:auth<Mark Devine (mark@markdevine.com)>;
+unit class Hardware::Tape::Management::ITDT::IEStation:api<1>:auth<Mark Devine (mark@markdevine.com)>;
 
 has $.ImportExportStationAddress    is required;
 has $.ImportExportState             is required;
